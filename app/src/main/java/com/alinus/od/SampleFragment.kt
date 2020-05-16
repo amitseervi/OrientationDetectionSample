@@ -7,17 +7,15 @@ import android.view.Surface
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 
 class SampleFragment : Fragment(R.layout.fragment_sample) {
     private lateinit var orientationTextView: TextView
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         orientationTextView = view.findViewById(R.id.message)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        Log.i("SampleFragment", "On Config changed")
-        orientationTextView.text = newConfig.orientation.toString()
+        MainActivity.pitchLiveData.observe(viewLifecycleOwner, Observer {
+            orientationTextView.text = it
+        })
     }
 }
