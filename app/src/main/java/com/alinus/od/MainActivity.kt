@@ -64,13 +64,11 @@ class MainActivity : AppCompatActivity(), SensorEventListener2 {
     private fun update(vectors: FloatArray) {
         val rotationMatrix = FloatArray(9)
         SensorManager.getRotationMatrixFromVector(rotationMatrix, vectors)
-        val worldAxisX = SensorManager.AXIS_X
-        val worldAxisZ = SensorManager.AXIS_Z
         val adjustedRotationMatrix = FloatArray(9)
         SensorManager.remapCoordinateSystem(
             rotationMatrix,
-            worldAxisX,
-            worldAxisZ,
+            SensorManager.AXIS_X,
+            SensorManager.AXIS_Z,
             adjustedRotationMatrix
         )
         val orientation = FloatArray(3)
